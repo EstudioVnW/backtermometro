@@ -1,9 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-
-
-Base = declarative_base()
+from base import Base
 
 class Polo(Base):
 	__tablename__ = 'polos'
@@ -27,7 +23,7 @@ class AllPolos():
 		polo = self.session.query(Polo).filter_by(id_polos = id).first()
 		return polo
 
-	def update(self, id_polos, nome, fl_professor):
+	def update(self, id_polos, nome):
 		polo = self.session.query(Polo).filter_by(id_polos = id_polos).first()
 		polo.nome = nome
 		self.session.commit()
