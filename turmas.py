@@ -84,7 +84,7 @@ class AllTurmas():
 			self.session.delete(turma)
 			self.session.commit()
 			return {
-				'mensagem': 'Pessoa apagada com sucesso!'
+				'mensagem': 'Turma apagada com sucesso!'
 			}
 		except:
 			self.session.rollback()

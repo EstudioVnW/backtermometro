@@ -18,6 +18,8 @@ app = Flask(__name__)
 
 all_pessoas = AllPessoas(session)
 all_polos = AllPolos(session)
+all_aulas = AllAulas(session)
+all_turmas = AllTurmas(session)
 
 @app.route("/pessoas", methods=['GET'])
 def get_all_pessoas():
@@ -115,6 +117,97 @@ def delete_polo(id):
     except Exception as exc:
         return exc, 500
 
+
+
+
+
+
+
+@app.route("/aulas", methods=['GET'])
+def get_all_aulas():
+    aulas = all_aulas.readAll()
+    return jsonify(aulas)
+
+@app.route("/aulas", methods=['POST'])
+def criar_aula():
+    json = request.get_json()
+    try:
+        nova_aula = all_aulas.create(json['tema'], json['descricao'], json['data'], json['turmas_id_turmas'], json['polos_id_polos'], json['pessoas_id_pessoas'])
+        return jsonify(nova_aula), 201
+    except Exception as exc:
+        return exc, 500
+
+@app.route("/aulas/<int:id>", methods=['GET'])
+def get_aula(id):
+    aula = all_aulas.read(id)
+    if aula:
+        return jsonify(aula), 200
+    else:
+        return 'Aula não encontrada', 404
+
+@app.route("/aulas/<int:id>", methods=['PUT'])
+def update_aula(id):
+    json = request.get_json()
+    try:
+        aula_atualizada = all_aulas.update(id, json['tema'], json['descricao'], json['data'], json['turmas_id_turmas'], json['polos_id_polos'], json['pessoas_id_pessoas'])
+        if aula_atualizada:
+            return jsonify(aula_atualizada), 200
+        else:
+            return 'Aula não encontrada', 404
+    except Exception as exc:
+        return exc, 500
+
+
+
+
+
+
+@app.route("/turmas", methods=['GET'])
+def get_all_turmas():
+    turmas = all_turmas.readAll()
+    return jsonify(turmas)
+
+@app.route("/turmas", methods=['POST'])
+def criar_turma():
+    json = request.get_json()
+    try: 
+        nova_turma = all_turmas.create(json['alunos_turma'], json['modulo'], json['turno'], json['data_inicial'], json['data_final'], json['polos_id_polos'])
+        return jsonify(nova_turma), 201
+    except Exception as exc:
+        return exc, 500
+
+@app.route("/turmas/<int:id>", methods=['GET'])
+def get_turmas(id):
+    turma = all_turmas.read(id)
+    if turma:
+        return jsonify(turma), 200
+    else:
+        return 'Turma não encontrada', 404
+
+@app.route("/turmas/<int:id>", methods=['PUT'])
+def update_turma(id):
+    json = request.get_json()
+    try:
+        turma_atualizada = all_turmas.update(id, json['alunos_turma'], json['modulo'], json['turno'], json['data_inicial'], json['data_final'], json['polos_id_polos'])
+        if turma_atualizada:
+            return jsonify(turma_atualizada), 200
+        else:
+            return 'Turma não encontrada', 404 
+    except Exception as exc:
+        return exc, 500
+
+@app.route("/turmas/<int:id>", methods=['DELETE'])
+def delete_turma(id):
+    try: 
+        mensagem = all_turmas.delete(id)
+        if mensagem:
+            return jsonify(mensagem), 200
+        else:
+            return 'Turma não encontrada', 404
+    except Exception as exc:
+        return exc, 500
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
@@ -164,8 +257,3 @@ if __name__ == '__main__':
 
 # turma = AllTurmas(session)
 # turma.update(11, 'Marcio', 1, 'Manhã', '2018-05-13','2018-10-13',  1)
-
-
-
-
-

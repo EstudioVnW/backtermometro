@@ -43,27 +43,26 @@ class AllAulas():
 		try:
 			self.session.add(nova_aula)
 			self.session.commit()
-			return nova_turma.to_json()
+			return nova_aula.to_json()
 		except:
 			self.session.rollback()
 			raise
 
 	def readAll(self):
-		turmas = self.session.query(Turma).all()
+		aulas = self.session.query(Aula).all()
 		nova_lista = []
-		for turma in turmas:
-			nova_lista.append(turma.to_json())
+		for aula in aulas:
+			nova_lista.append(aula.to_json())
 		return nova_lista
-		
 
 	def read(self, id_aulas):
 		aula = self.session.query(Aula).filter_by(id_aulas = id_aulas).first()
-		return aula.to_json() if pessoa else None
+		return aula.to_json() if aula else None
 
 	def update(self, id_aulas, tema, descricao, data, turmas_id_turmas, polos_id_polos, pessoas_id_pessoas):
 		try:
 			aula = self.session.query(Aula).filter_by(id_aulas = id_aulas).first()
-			if not turma:
+			if not aula:
 				return None
 			aula.tema = tema
 			aula.descricao = descricao
@@ -72,7 +71,7 @@ class AllAulas():
 			aula.polos_id_polos = polos_id_polos
 			aula.id_professor = pessoas_id_pessoas
 			self.session.commit()
-			return pessoa.to_json()
+			return aula.to_json()
 		except:
 			self.session.rollback()
 			raise
