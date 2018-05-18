@@ -9,7 +9,14 @@ class Duvida(Base):
 	duvida = Column(String)
 	legenda = Column(String)
 	aulas_id_aulas = Column(Integer, ForeignKey('aulas.id_aulas'))
-
+	
+	def to_json(self):
+			return {
+				'id_duvidas': self.id_duvidas,
+				'duvida': self.duvida,
+				'legenda': self.legenda,
+				'aulas_id_aulas': self.aulas_id_aulas
+			}
 
 class AllDuvidas():
 	
@@ -21,9 +28,47 @@ class AllDuvidas():
 		nova_duvida.duvida = duvida
 		nova_duvida.legenda = legenda
 		nova_duvida.aulas_id_aulas = aulas_id_aulas
-		self.session.add(nova_duvida)
-		self.session.commit()
+
+		try:
+			self.session.add(nova_duvida)
+			self.session.commit()
+			return nova_duvida.to_json()
+		except:
+			self.session.rollback()
+			raise
+
+	def readAll(self):
+		duvidas = self.session.query(Duvida).all()
+		nova_legenda = []
+		for duvida in duvidas:
+			nova_legenda.append(duvida.to_json())
+		return nova_legenda	
 
 	def read(self, id):
 		duvida = self.session.query(Duvida).filter_by(id_duvidas = id).first()
-		return duvida
+		return duvida.to_json() if duvida else None
+
+	def update(self, id_duvidas, duvida, legenda, aulas_id_aulas):
+		try:
+			duvida = self.session.query(Duvida).filter_by(id_duvidas = id_duvidas).first()
+			if not duvida:
+				return None
+			duvida.duvida = duvida	
+			duvida.legenda = legenda
+			duvida.aulas_id_aulas = aulas_id_aulas
+			self.session.commit()
+			return duvida.to_json()
+		except:
+			self.session.rollback()
+			raise
+
+
+
+
+
+
+
+
+
+
+

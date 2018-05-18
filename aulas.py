@@ -31,14 +31,14 @@ class AllAulas():
 	def __init__(self, session):
 		self.session = session
 
-	def create(self, tema, descricao, data, turmas_id_turmas, polos_id_polos, pessoas_id_pessoas):
+	def create(self, tema, descricao, data, turmas_id_turmas, polos_id_polos, id_professor):
 		nova_aula = Aula()
 		nova_aula.tema = tema
 		nova_aula.descricao = descricao
 		nova_aula.data = data
 		nova_aula.turmas_id_turmas = turmas_id_turmas
 		nova_aula.polos_id_polos= polos_id_polos
-		nova_aula.id_professor = pessoas_id_pessoas
+		nova_aula.id_professor = id_professor
 
 		try:
 			self.session.add(nova_aula)
@@ -59,7 +59,7 @@ class AllAulas():
 		aula = self.session.query(Aula).filter_by(id_aulas = id_aulas).first()
 		return aula.to_json() if aula else None
 
-	def update(self, id_aulas, tema, descricao, data, turmas_id_turmas, polos_id_polos, pessoas_id_pessoas):
+	def update(self, id_aulas, tema, descricao, data, turmas_id_turmas, polos_id_polos, id_professor):
 		try:
 			aula = self.session.query(Aula).filter_by(id_aulas = id_aulas).first()
 			if not aula:
@@ -69,7 +69,7 @@ class AllAulas():
 			aula.data = data
 			aula.turmas_id_turmas = turmas_id_turmas
 			aula.polos_id_polos = polos_id_polos
-			aula.id_professor = pessoas_id_pessoas
+			aula.id_professor = id_professor
 			self.session.commit()
 			return aula.to_json()
 		except:

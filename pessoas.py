@@ -2,7 +2,6 @@ from sqlalchemy import Column, Integer, String, Boolean
 from base import Base
 from sqlalchemy.orm import relationship
 
-
 class Pessoa(Base):
 	__tablename__ = 'pessoas'
 
