@@ -5,7 +5,6 @@ from aulas import Aula
 class Avaliacao(Base):
 	__tablename__ = 'avaliacoes'
 
-	# id_avaliacao = Column(Integer, primary_key=True)
 	id_avaliacoes = Column(Integer, primary_key=True)
 	nota = Column(Integer)
 	avaliacao = Column(String)
@@ -30,7 +29,6 @@ class AllAvaliacoes():
 		nova_avaliacao.nota = nota
 		nova_avaliacao.avaliacao = avaliacao
 		nova_avaliacao.aulas_id_aulas = aulas_id_aulas
-		
 
 		try:
 			self.session.add(nova_avaliacao)
@@ -52,21 +50,19 @@ class AllAvaliacoes():
 		avaliacao = self.session.query(Avaliacao).filter_by(id_avaliacaos = id).first()
 		return avaliacao.to_json() if avaliacao else None
 
-	def update(self, id_avaliacoes,  nota, avaliacao, aulas_id_aulas):
+	def update(self, id_avaliacoes, nota, avaliacao, aulas_id_aulas):
 		try:
-			avaliacao = self.session.query(Avaliacao).filter_by(id_avaliacoes = id_avaliacoes).first()
-			if not avaliacao:
+			atualizar = self.session.query(Avaliacao).filter_by(id_avaliacoes = id_avaliacoes).first()
+			if not atualizar:
 				return None
-			avaliacao.nota = nota
-			avaliacao.avaliacao = avaliacao
-			avaliacao.aulas_id_aulas = aulas_id_aulas
+			atualizar.nota = nota
+			atualizar.avaliacao = avaliacao
+			atualizar.aulas_id_aulas = aulas_id_aulas
 			self.session.commit()
-			return avaliacao.to_json()
+			return atualizar.to_json()
 		except:
 			self.session.rollback()
 			raise
-
-
 
 	def delete(self, id_avaliacoes):
 		try:

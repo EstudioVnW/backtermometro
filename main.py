@@ -83,8 +83,8 @@ def get_all_polos():
 def criar_polo():
     json = request.get_json()
     try:
-        nova_polo = all_polos.create(json['nome'])
-        return jsonify(nova_polo), 201
+        novo_polo = all_polos.create(json['nome'])
+        return jsonify(novo_polo), 201
     except Exception as exc:
         return exc, 500
 
@@ -95,17 +95,17 @@ def get_polo(id):
     if polo:
         return jsonify(polo), 200
     else:
-        return 'Polo não encontrada', 404
+        return 'Polo não encontrado', 404
 
 @app.route("/polos/<int:id>", methods=['PUT'])
 def update_polo(id):
     json = request.get_json()
     try:
-        polo_atualizada = all_polos.update(id, json['nome'])
-        if polo_atualizada:
-            return jsonify(polo_atualizada), 200
+        polo_atualizado = all_polos.update(id, json['nome'])
+        if polo_atualizado:
+            return jsonify(polo_atualizado), 200
         else:
-            return 'Polo não encontrada', 404
+            return 'Polo não encontrado', 404
     except Exception as exc:
         return exc, 500
 
@@ -116,7 +116,7 @@ def delete_polo(id):
         if mensagem:
             return jsonify(mensagem), 200
         else:
-            return 'Polo não encontrada', 404
+            return 'Polo não encontrado', 404
     except Exception as exc:
         return exc, 500
 
@@ -175,7 +175,7 @@ def criar_turma():
     json = request.get_json()
     try:
         nova_turma = all_turmas.create(json['alunos_turma'], json['modulo'], json['turno'], json['data_inicial'], json['data_final'], json['id_polos'])
-        return jsonify('Nova turma criada com sucesso!'), 201
+        return jsonify(nova_turma), 201
     except Exception as exc:
         return exc, 500
 
@@ -199,28 +199,8 @@ def update_turma(id):
     except Exception as exc:
         return exc, 500
 
-# @app.route("/pessoas/<int:id>", methods=['PUT'])
-# def update_pessoa(id):
-#     json = request.get_json()
-#     try:
-#         pessoa_atualizada = all_pessoas.update(id, json['nome'], json['fl_professor'])
-#         if pessoa_atualizada:
-#             return jsonify(pessoa_atualizada), 200
-#         else:
-#             return 'Pessoa não encontrada', 404
-#     except Exception as exc:
-#         return exc, 500
 
-# @app.route("/turmas/<int:id>", methods=['DELETE'])
-# def delete_turma(id):
-#     try: 
-#         mensagem = all_turmas.delete(id)
-#         if mensagem:
-#             return jsonify(mensagem), 200
-#         else:
-#             return 'Turma não encontrada', 404
-#     except Exception as exc:
-#         return exc, 500
+
 
 
 
@@ -274,6 +254,9 @@ def delete_duvida(id):
 
 
 
+
+
+
 @app.route("/avaliacoes", methods=['GET'])
 def get_all_avaliacoes():
     avaliacoes = all_avaliacoes.readAll()
@@ -287,7 +270,6 @@ def criar_avaliacao():
         return jsonify(nova_avaliacao), 201
     except Exception as exc:
         return exc, 500
-
 
 @app.route("/avaliacoes/<int:id>", methods=['GET'])
 def get_avaliacao(id):
@@ -308,8 +290,6 @@ def update_avaliacao(id):
             return 'Avaliação não encontrada', 404
     except Exception as exc:
         return exc, 500
-
-
 
 @app.route("/avaliacoes/<int:id>", methods=['DELETE'])
 def delete_avaliacao(id):

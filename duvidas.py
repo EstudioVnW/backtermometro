@@ -50,18 +50,31 @@ class AllDuvidas():
 
 	def update(self, id_duvidas, duvida, legenda, aulas_id_aulas):
 		try:
-			duvida = self.session.query(Duvida).filter_by(id_duvidas = id_duvidas).first()
-			if not duvida:
+			atualizar = self.session.query(Duvida).filter_by(id_duvidas = id_duvidas).first()
+			if not atualizar:
 				return None
-			duvida.duvida = duvida	
-			duvida.legenda = legenda
-			duvida.aulas_id_aulas = aulas_id_aulas
+			atualizar.duvida = duvida	
+			atualizar.legenda = legenda
+			atualizar.aulas_id_aulas = aulas_id_aulas
 			self.session.commit()
-			return duvida.to_json()
+			return atualizar.to_json()
 		except:
 			self.session.rollback()
 			raise
-
+	
+	def delete(self, id_duvidas):
+		try:
+			duvida = self.session.query(Duvida).filter_by(id_duvidas = id_duvidas).first()
+			if not duvida:
+				return None
+			self.session.delete(duvida)
+			self.session.commit()
+			return {
+				'mensagem': 'Duvida apagada com sucesso!'
+			}
+		except:
+			self.session.rollback()
+			raise
 
 
 
