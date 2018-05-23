@@ -19,11 +19,7 @@ class Aula(Base):
 		return {
 			'id_aulas': self.id_aulas,
 			'tema': self.tema,
-			'descricao': self.descricao,
-			'data': self.data,
-			'turmas_id_turmas': self.turmas_id_turmas,
-			'polos_id_polos': self.polos_id_polos,
-			'id_professor': self.id_professor
+			'descricao': self.descricao
 		}
 
 

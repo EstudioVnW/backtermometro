@@ -133,11 +133,9 @@ def get_all_aulas():
 @app.route("/aulas", methods=['POST'])
 def criar_aula():
     json = request.get_json()
-    print("aeeeeee")
     try:
         nova_aula = all_aulas.create(json['tema'], json['descricao'], json['data'], json['turmas_id_turmas'], json['polos_id_polos'], json['id_professor'])
         return jsonify(nova_aula), 201
-        print("uuuuuuuuuUUUU")
     except Exception as exc:
         return exc, 500
 
@@ -278,7 +276,9 @@ def get_avaliacao(id):
     if avaliacao:
         return jsonify(avaliacao), 200
     else:
-        return 'Avaliação não encontrada', 404       
+        return 'Avaliação não encontrada', 404   
+
+            
 
 @app.route("/avaliacoes/<int:id>", methods=['PUT'])
 def update_avaliacao(id):
