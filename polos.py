@@ -19,24 +19,24 @@ class AllPolos():
 		self.session = session
 
 	def create(self, nome):
-		nova_polo = Polo()
-		nova_polo.nome = nome
+		new_polo = Polo()
+		new_polo.nome = nome
 
 
 		try:
-			self.session.add(nova_polo)
+			self.session.add(new_polo)
 			self.session.commit()
-			return nova_polo.to_json()
+			return new_polo.to_json()
 		except:
 			self.session.rollback()
 			raise
 
 	def readAll(self):
 		polos = self.session.query(Polo).all()
-		nova_lista = []
+		new_list = []
 		for polo in polos:
-			nova_lista.append(polo.to_json())
-		return nova_lista
+			new_list.append(polo.to_json())
+		return new_list
 
 	def read(self, id):
 		polo = self.session.query(Polo).filter_by(id_polos = id).first()
@@ -62,7 +62,7 @@ class AllPolos():
 			self.session.delete(polo)
 			self.session.commit()
 			return{
-				'mensagem': 'Polo apagado com sucesso'
+				'message': 'Polo apagado com sucesso'
 			}
 		except:
 			self.session.rollback()

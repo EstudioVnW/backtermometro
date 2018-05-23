@@ -35,9 +35,9 @@ class AllTurmas():
 		nova_turma.alunos_turma = alunos_turma
 		nova_turma.modulo = modulo
 		nova_turma.turno = turno
-		nova_turma.data_inicial = data_inicial
+		nova_turma.data_inicial = data_inicial		
 		nova_turma.data_final = data_final
-		nova_turma.id_polos = id_polos	
+		nova_turma.id_polos = id_polos
 
 		try:			
 			self.session.add(nova_turma)
@@ -47,13 +47,12 @@ class AllTurmas():
 			self.session.rollback()
 			raise
 
-
 	def readAll(self):
 		turmas = self.session.query(Turma).all()
-		nova_turma = []
+		new_class = []
 		for turma in turmas:
-			nova_turma.append(turma.to_json())
-		return nova_turma
+			new_class.append(turma.to_json())
+		return new_class
 
 	def read(self, id):
 		turma = self.session.query(Turma).filter_by(id_turmas = id).first()

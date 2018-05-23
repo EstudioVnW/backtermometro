@@ -26,6 +26,7 @@ class Aula(Base):
 			'id_professor': self.id_professor
 		}
 
+
 class AllAulas():
 	
 	def __init__(self, session):

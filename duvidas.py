@@ -24,25 +24,25 @@ class AllDuvidas():
 		self.session = session
 
 	def create(self, duvida, legenda, aulas_id_aulas):
-		nova_duvida = Duvida()
-		nova_duvida.duvida = duvida
-		nova_duvida.legenda = legenda
-		nova_duvida.aulas_id_aulas = aulas_id_aulas
+		new_doubt = Duvida()
+		new_doubt.duvida = duvida
+		new_doubt.legenda = legenda
+		new_doubt.aulas_id_aulas = aulas_id_aulas
 
 		try:
-			self.session.add(nova_duvida)
+			self.session.add(new_doubt)
 			self.session.commit()
-			return nova_duvida.to_json()
+			return new_doubt.to_json()
 		except:
 			self.session.rollback()
 			raise
 
 	def readAll(self):
 		duvidas = self.session.query(Duvida).all()
-		nova_legenda = []
+		new_legend= []
 		for duvida in duvidas:
-			nova_legenda.append(duvida.to_json())
-		return nova_legenda	
+			new_legend.append(duvida.to_json())
+		return new_legend	
 
 	def read(self, id):
 		duvida = self.session.query(Duvida).filter_by(id_duvidas = id).first()
@@ -50,14 +50,14 @@ class AllDuvidas():
 
 	def update(self, id_duvidas, duvida, legenda, aulas_id_aulas):
 		try:
-			atualizar = self.session.query(Duvida).filter_by(id_duvidas = id_duvidas).first()
-			if not atualizar:
+			update = self.session.query(Duvida).filter_by(id_duvidas = id_duvidas).first()
+			if not update:
 				return None
-			atualizar.duvida = duvida	
-			atualizar.legenda = legenda
-			atualizar.aulas_id_aulas = aulas_id_aulas
+			update.duvida = duvida	
+			update.legenda = legenda
+			update.aulas_id_aulas = aulas_id_aulas
 			self.session.commit()
-			return atualizar.to_json()
+			return update.to_json()
 		except:
 			self.session.rollback()
 			raise
@@ -70,7 +70,7 @@ class AllDuvidas():
 			self.session.delete(duvida)
 			self.session.commit()
 			return {
-				'mensagem': 'Duvida apagada com sucesso!'
+				'message': 'Duvida apagada com sucesso!'
 			}
 		except:
 			self.session.rollback()

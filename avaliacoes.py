@@ -25,25 +25,25 @@ class AllAvaliacoes():
 		self.session = session
 
 	def create(self, nota, avaliacao, aulas_id_aulas):
-		nova_avaliacao = Avaliacao()
-		nova_avaliacao.nota = nota
-		nova_avaliacao.avaliacao = avaliacao
-		nova_avaliacao.aulas_id_aulas = aulas_id_aulas
+		new_evaluation= Avaliacao()
+		new_evaluation.nota = nota
+		new_evaluation.avaliacao = avaliacao
+		new_evaluation.aulas_id_aulas = aulas_id_aulas
 
 		try:
-			self.session.add(nova_avaliacao)
+			self.session.add(new_evaluation)
 			self.session.commit()
-			return nova_avaliacao.to_json()
+			return new_evaluation.to_json()
 		except:
 			self.session.rollback()
 			raise
 
 	def readAll(self):
 		avaliacoes = self.session.query(Avaliacao).all()
-		nova_avaliacao = []
+		new_evaluation = []
 		for avaliacao in avaliacoes:
-			nova_avaliacao.append(avaliacao.to_json())
-		return nova_avaliacao
+			new_evaluation.append(avaliacao.to_json())
+		return new_evaluation
 
 
 	def read(self, id):
@@ -52,14 +52,14 @@ class AllAvaliacoes():
 
 	def update(self, id_avaliacoes, nota, avaliacao, aulas_id_aulas):
 		try:
-			atualizar = self.session.query(Avaliacao).filter_by(id_avaliacoes = id_avaliacoes).first()
-			if not atualizar:
+			updated = self.session.query(Avaliacao).filter_by(id_avaliacoes = id_avaliacoes).first()
+			if not updated:
 				return None
-			atualizar.nota = nota
-			atualizar.avaliacao = avaliacao
-			atualizar.aulas_id_aulas = aulas_id_aulas
+			updated.nota = nota
+			updated.avaliacao = avaliacao
+			updated.aulas_id_aulas = aulas_id_aulas
 			self.session.commit()
-			return atualizar.to_json()
+			return updated.to_json()
 		except:
 			self.session.rollback()
 			raise
@@ -72,7 +72,7 @@ class AllAvaliacoes():
 			self.session.delete(avaliacao)
 			self.session.commit()
 			return {
-				'mensagem': 'Avaliacao apagada com sucesso!'
+				'message': 'Avaliacao apagada com sucesso!'
 			}
 		except:
 			self.session.rollback()
