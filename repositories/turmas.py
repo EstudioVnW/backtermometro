@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
-from base import Base
-from polos import Polo
+from repositories.base import Base
+from repositories.polos import Polo
 
 class Turma(Base):
 	__tablename__ = 'turmas'

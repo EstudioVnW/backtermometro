@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from base import Base
-from aulas import Aula
+from repositories.base import Base
+from repositories.aulas import Aula
 
 class Avaliacao(Base):
 	__tablename__ = 'avaliacoes'
@@ -47,7 +47,7 @@ class AllAvaliacoes():
 
 
 	def read(self, id):
-		avaliacao = self.session.query(Avaliacao).filter_by(id_avaliacaos = id).first()
+		avaliacao = self.session.query(Avaliacao).filter_by(id_avaliacoes = id).first()
 		return avaliacao.to_json() if avaliacao else None
 
 	def update(self, id_avaliacoes, nota, avaliacao, aulas_id_aulas):

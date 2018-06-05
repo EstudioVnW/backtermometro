@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from base import Base
+from repositories.base import Base
 
 class Polo(Base):
 	__tablename__ = 'polos'

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from base import Base
-from aulas import Aula
+from repositories.base import Base
+from repositories.aulas import Aula
 
 class Duvida(Base):
 	__tablename__ = 'duvidas'

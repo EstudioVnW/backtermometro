@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
-from base import Base
-from turmas import Turma
-from polos import Polo
-from pessoas import Pessoa
+from repositories.base import Base
+from repositories.turmas import Turma
+from repositories.polos import Polo
+from repositories.pessoas import Pessoa
 
 class Aula(Base):
 	__tablename__ = 'aulas'
