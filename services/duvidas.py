@@ -50,3 +50,5 @@ class AskResource(Resource):
 				return 'Dúvida não encontrada', 404
 		except Exception as exc:
 			return exc, 500
+
+api.add_resource (AllAskResource, '/duvidas')
